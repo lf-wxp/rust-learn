@@ -1,4 +1,5 @@
 use std::fmt;
+use std::mem;
 
 #[derive(Debug)]
 struct Matrix(f32, f32, f32, f32);
@@ -36,4 +37,16 @@ fn main() {
 
   println!("Matrix: \n{}", matrix);
   println!("Transpose: \n{}", transpose(matrix));
+
+  // 定长数组（类型标记是多余的）
+  let xs: [i32; 5] = [1, 2, 3, 4, 5];
+
+  println!("array occupied {} bytes", mem::size_of_val(&xs));
+  
+  fn analyze_slice(slice: &[i32]) {
+    println!("first element of the slice: {}", slice[0]);
+    println!("the slice has {} elements", slice.len());
+  }
+  analyze_slice(&xs[1 .. 4]);
+  analyze_slice(&xs[1 ..= 4]);
 }
